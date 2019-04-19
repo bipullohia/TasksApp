@@ -1,0 +1,52 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-12 mt-4 mb-4">
+            <h3 class="font-weight-light pl-2">Explore your tasks by Category:</h3>
+            <div class="d-inline" *ngFor="let category of ['Personal', 'Work', 'Money', 'Health', 'Inspirational']">
+                <a routerLink="/listTasks/{{category}}">
+                    <button type="button" class="btn btn-outline-info pl-5 pr-5 ml-3 mt-2">{{category}}</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="font-weight-light pl-2 pt-3">Urgent Tasks: </h3>
+                    <ul class="list-group" *ngFor="let t of tasks">
+                        <li class="list-group-item" *ngIf="t.urgent"><img [src]="urgentLogo" class="mr-2" />
+                            {{t.taskTitle}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="font-weight-light pl-2 pt-3">Finished Tasks: </h3>
+                    <ul class="list-group" *ngFor="let t of tasks">
+
+                        <li class="list-group-item" *ngIf="t.finished">
+                            <img [src]="checkedLogo" *ngIf="t.finished" class="mr-2" />
+                            {{t.taskTitle}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+            <h3 class="font-weight-light pl-2 pt-3">Recently Created: </h3>
+            <ul class="list-group" *ngFor="let t of tasks.reverse() | slice:0:10">
+                <li class="list-group-item">
+                    <span>{{t.taskTitle}}</span>
+                    <img [src]="urgentLogo" class="ml-2" data-toggle="tooltip" data-placement="bottom" *ngIf="t.urgent"
+                        title="Urgent Task" />
+                    <img [src]="checkedLogo" class="ml-2" data-toggle="tooltip" data-placement="bottom" *ngIf="t.finished"
+                        title="Task is already finished" />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

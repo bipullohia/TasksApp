@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="card-columns pt-4">
+    <div class="card p-3" *ngFor="let t of tasks" (mouseover)="cf.hidden=false; nomouse.hidden=true; mouse.hidden=false"
+      (mouseleave)="cf.hidden=true; nomouse.hidden=false; mouse.hidden=true">
+
+      <div class="--row clearfix mb-2">
+
+        <div class="d-inline float-left" *ngIf="t.urgent" [ngClass]="{'fade-less' : t.finished}">
+          <img [src]="urgentLogo" class="mr-2" data-toggle="tooltip" data-placement="bottom" title="Urgent Task" />
+        </div>
+
+        <div class="d-inline text-success float-left" *ngIf="t.finished">
+          <img [src]="checkedLogo" class="mr-1" data-toggle="tooltip" data-placement="bottom" title="Task is already finished" />
+        </div>
+      </div>
+
+      <div [ngClass]="{'fade-less' : t.finished}">
+        <div class="clearfix">
+          <h4 class="card-title float-left">
+            <div #nomouse>{{t.taskTitle|adjustLength:30}}</div>
+            <div #mouse hidden="true">{{t.taskTitle|adjustLength:15}}</div>
+          </h4>
+          <div class="float-right">
+            <div hidden="true" #cf>
+
+              <a routerLink="/editTask/{{t.taskId}}">
+                <img [src]="sirenLogo" class="img-thumbnail" data-toggle="tooltip" data-placement="bottom" title="Edit this Task" />
+              </a>
+
+              <a routerLink="/deleteTask/{{t.taskId}}">
+                <img [src]="garbageLogo" class="img-thumbnail ml-2" data-toggle="tooltip" data-placement="bottom" title="Delete this Task" />
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <p>
+          {{t.taskBody}}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
